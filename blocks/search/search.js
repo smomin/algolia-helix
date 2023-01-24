@@ -1,10 +1,9 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-import  '../../scripts/lib-algoliasearch.js';
-import '../../scripts/lib-autocomplete.js';
+import algoliasearch from 'algoliasearch/lite';
+import { autocomplete, getAlgoliaResults } from '@algolia/autocomplete-js';
 
 export default function decorate(block) {
-  const algoliasearch = window['algoliasearch'];
-  const { autocomplete, getAlgoliaResults } = window['@algolia/autocomplete-js'];
+  console.log('decorate search', block)
   const searchClient = algoliasearch(
     'latency',
     '6be0576ff61c053d5f9a3225e2a90f76'
@@ -39,4 +38,7 @@ export default function decorate(block) {
       ];
     },
   });
+  // const div = document.createElement('div');
+  // div.textContent = 'Hello World!!!';
+  // block.append(div);
 }

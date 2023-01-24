@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, buildBlock, loadBlock, decorateBlock } from '../../scripts/lib-franklin.js';
 
 // media query match that indicates mobile/tablet width
 const MQ = window.matchMedia('(min-width: 900px)');
@@ -95,6 +95,9 @@ export default async function decorate(block) {
 
   // fetch nav content
   const navPath = config.nav || '/nav';
+
+  console.log('config', config);
+  console.log('navPath', navPath);
   const resp = await fetch(`${navPath}.plain.html`);
 
   if (resp.ok) {
@@ -124,6 +127,12 @@ export default async function decorate(block) {
         });
       });
     }
+
+    const autocompleteSection = nav.querySelector('.autocomplete');
+    decorateBlock(autocompleteSection)
+    await loadBlock(autocompleteSection);
+
+    console.log(autocompleteSection);
 
     // hamburger for mobile
     const hamburger = document.createElement('div');
